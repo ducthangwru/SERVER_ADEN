@@ -207,7 +207,42 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImagesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LoginWEBController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DataAccess\data\BaoCaoCheckListDB.cs" />
+    <Compile Include="DataAccess\data\BaoCaoSuCoDB.cs" />
+    <Compile Include="DataAccess\data\CheckListDB.cs" />
+    <Compile Include="DataAccess\data\DiaDiemDB.cs" />
+    <Compile Include="DataAccess\data\HuongDanDB.cs" />
+    <Compile Include="DataAccess\data\ImagesDB.cs" />
+    <Compile Include="DataAccess\data\KeHoachDB.cs" />
+    <Compile Include="DataAccess\data\KhachHangDB.cs" />
+    <Compile Include="DataAccess\data\LoaiNhanVienDB.cs" />
+    <Compile Include="DataAccess\data\MatBangDB.cs" />
+    <Compile Include="DataAccess\data\NhanVienDB.cs" />
+    <Compile Include="DataAccess\data\SiteDB.cs" />
+    <Compile Include="DataAccess\objects\BaoCaoCheckListAppOBJ.cs" />
+    <Compile Include="DataAccess\objects\BaoCaoCheckListOBJ.cs" />
+    <Compile Include="DataAccess\objects\BaoCaoSuCoAppOBJ.cs" />
+    <Compile Include="DataAccess\objects\BaoCaoSuCoOBJ.cs" />
+    <Compile Include="DataAccess\objects\CheckListOBJ.cs" />
+    <Compile Include="DataAccess\objects\ChiTietKeHoachOBJ.cs" />
+    <Compile Include="DataAccess\objects\DiaDiemOBJ.cs" />
+    <Compile Include="DataAccess\objects\HuongDanOBJ.cs" />
+    <Compile Include="DataAccess\objects\ImagesOBJ.cs" />
+    <Compile Include="DataAccess\objects\KeHoachOBJ.cs" />
+    <Compile Include="DataAccess\objects\KhachHangOBJ.cs" />
+    <Compile Include="DataAccess\objects\LoaiNhanVienOBJ.cs" />
+    <Compile Include="DataAccess\objects\LoginOBJ.cs" />
+    <Compile Include="DataAccess\objects\MatBangOBJ.cs" />
+    <Compile Include="DataAccess\objects\NhanVienOBJ.cs" />
+    <Compile Include="DataAccess\objects\SiteOBJ.cs" />
+    <Compile Include="DataAccess\objects\ThongTinDangNhapOBJ.cs" />
+    <Compile Include="DataAccess\Procedures.cs" />
+    <Compile Include="DataAccess\SqlDataHelpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,6 +253,8 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\MultipartMediaTypeFormatter.cs" />
+    <Compile Include="Utils\Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -247,6 +284,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <None Include="Properties\PublishProfiles\SERVER_ADEN.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
