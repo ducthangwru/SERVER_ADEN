@@ -3,6 +3,7 @@ using SERVER_ADEN.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,7 @@ namespace SERVER_ADEN.DataAccess.data
 {
     public class BaoCaoSuCoDB
     {
+        public static SqlDataHelpers db = new SqlDataHelpers();
         BaoCaoSuCoDB() { }
 
         public static bool themBaoCaoSuCo(BaoCaoSuCoAppOBJ obj)
@@ -17,7 +19,15 @@ namespace SERVER_ADEN.DataAccess.data
             bool rs = false;
             try
             {
-                return rs = Util.db.ExecuteNonQuery(Procedures.InsertBaoCaoSuCo(obj)) > 0;
+                SqlParameter[] param = new SqlParameter[]
+                {
+                    new SqlParameter("@idnhanvien", obj.id_nhanvien),
+                    new SqlParameter("@idalbum", obj.id_album),
+                    new SqlParameter("@iddiadiem", obj.id_diadiem),
+                    new SqlParameter("@ghichu", obj.ghichu)
+                };
+
+                return rs = db.ExecuteNonQuery("sp_AppKsmart_Aden_InsertBaoCaoSuCo", param) > 0;
             }
             catch(Exception ex)
             {

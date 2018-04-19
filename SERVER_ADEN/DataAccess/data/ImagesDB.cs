@@ -3,6 +3,7 @@ using SERVER_ADEN.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,7 @@ namespace SERVER_ADEN.DataAccess.data
 {
     public class ImagesDB
     {
+        public static SqlDataHelpers db = new SqlDataHelpers();
         public ImagesDB() { }
 
         public static ImagesOBJ getAnhTheoIDMatBang(int id)
@@ -17,7 +19,7 @@ namespace SERVER_ADEN.DataAccess.data
             ImagesOBJ obj = new ImagesOBJ();
             try
             {
-               DataTable dt = Util.db.ExecuteDataSet(Procedures.GetAnhTheoIDMatBang(id)).Tables[0];
+                DataTable dt = db.ExecuteDataSet("sp_AppKsmart_Aden_GetAnhTheoIDMatBang", new SqlParameter("@id", id)).Tables[0];
                 foreach(DataRow dr in dt.Rows)
                 {
                     obj = new ImagesOBJ
@@ -36,23 +38,37 @@ namespace SERVER_ADEN.DataAccess.data
             return obj;
         }
 
-        public static bool insertAnhCheckListBangIDvaPath(int id, int idalbum, string path)
-        {
-            try
-            {
-                return Util.db.ExecuteNonQuery(Procedures.InsertAnhCheckListBangIDPathVaIDAlbum(id, idalbum, path)) > 0;
-            }
-            catch(Exception ex)
-            {
-                return false;
-            }
-        }
+        //public static bool insertAnhCheckListBangIDvaPath(int id, int idalbum, string path)
+        //{
+        //    try
+        //    {
+        //        SqlParameter[] param = new SqlParameter[]
+        //        {
+        //            new SqlParameter("@id", id),
+        //            new SqlParameter("@idalbum", idalbum),
+        //            new SqlParameter("@path", path)
+        //        };
+
+        //        return db.ExecuteNonQuery("sp_AppKsmart_Aden_InsertAnhCheckListBangIDPathVaIDAlbum", param) > 0;
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        return false;
+        //    }
+        //}
 
         public static bool insertAnhBaoCaoBangIDDiaDiemIDAlbumVaPath(int iddiadiem, int idalbum, string path)
         {
             try
             {
-                return Util.db.ExecuteNonQuery(Procedures.InsertAnhBaoCaoBangIDDiaDiemIDAlbumVaPath(iddiadiem, idalbum, path)) > 0;
+                SqlParameter[] param = new SqlParameter[]
+                {
+                    new SqlParameter("@iddiadiem", iddiadiem),
+                    new SqlParameter("@idalbum", idalbum),
+                    new SqlParameter("@path", path)
+                };
+
+                return db.ExecuteNonQuery("sp_AppKsmart_Aden_InsertAnhBaoCaoBangIDDiaDiemIDAlbumVaPath", param) > 0;
             }
             catch(Exception ex)
             {
@@ -64,19 +80,32 @@ namespace SERVER_ADEN.DataAccess.data
         {
             try
             {
-                return Util.db.ExecuteNonQuery(Procedures.InsertAlbumTheoTen(ten, id)) > 0;
+                SqlParameter[] param = new SqlParameter[]
+                {
+                    new SqlParameter("@idnhanvien", id),
+                    new SqlParameter("@tenalbum", ten)
+                };
+
+                return db.ExecuteNonQuery("sp_AppKsmart_Aden_InsertAlbumTheoTen", param) > 0;
             }
             catch(Exception ex)
             {
                 return false;
             }
         }
+
         public static int getIDAlbumTheoTenvaIDNV(string path, int idnv)
         {
             int id = 0;
             try
             {
-                DataTable dt = Util.db.ExecuteDataSet(Procedures.GetIDAlbumTheoTenVaIDNV(path, idnv)).Tables[0];
+                SqlParameter[] param = new SqlParameter[]
+                {
+                    new SqlParameter("@tenalbum", path),
+                    new SqlParameter("@idnhanvien", idnv)
+                };
+
+                DataTable dt = db.ExecuteDataSet("sp_AppKsmart_Aden_GetIDAlbumTheoTenVaIDNV", param).Tables[0];
                 id = int.Parse(dt.Rows[0]["id"].ToString());
             }
             catch(Exception ex)

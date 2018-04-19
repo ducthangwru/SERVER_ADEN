@@ -6,21 +6,34 @@ using SERVER_ADEN.DataAccess.objects;
 using SERVER_ADEN.Models;
 using System.Data;
 using SERVER_ADEN.Utils;
+using System.Data.SqlClient;
 
 namespace SERVER_ADEN.DataAccess.data
 {
     public class CheckListDB
     {
+        public static SqlDataHelpers db = new SqlDataHelpers();
         public CheckListDB() { }
 
+        /// <summary>
+        /// Lấy danh sách check list theo ID địa điểm và thời gian
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="day"></param>
+        /// <returns></returns>
         public static List<CheckListOBJ> getDanhSachCheckListTheoIDDiaDiemVaThoiGian(int id, int day)
         {
             List<CheckListOBJ> ds = null;
             try
             {
                 ds = new List<CheckListOBJ>();
+                SqlParameter[] param = new SqlParameter[]
+                {
+                    new SqlParameter("@id", id),
+                    new SqlParameter("@day", day)
+                };
 
-                DataTable dt = Util.db.ExecuteDataSet(Procedures.GetDanhSachCheckListTheoIDDiaDiemVaThoiGian(id, day)).Tables[0];
+                DataTable dt = db.ExecuteDataSet("sp_AppKsmart_Aden_GetDanhSachCheckListTheoIDDiaDiemVaThoiGian", param).Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
                     CheckListOBJ obj = new CheckListOBJ

@@ -3,6 +3,7 @@ using SERVER_ADEN.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -10,13 +11,19 @@ namespace SERVER_ADEN.DataAccess.data
 {
     public class HuongDanDB
     {
+        public static SqlDataHelpers db = new SqlDataHelpers();
         public HuongDanDB() { }
+        /// <summary>
+        /// Lấy danh sách hướng dẫn theo id địa điểm 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static List<HuongDanOBJ> getDanhSachHuongDanTheoIDDiaDiem(int id)
         {
             List<HuongDanOBJ> dsHuongDan = new List<HuongDanOBJ>();
             try
             {
-                DataTable dt = Util.db.ExecuteDataSet(Procedures.GetDanhSachHuongDanTheoIDDiaDiem(id)).Tables[0];
+                DataTable dt = db.ExecuteDataSet("sp_AppKsmart_Aden_GetDanhSachHuongDanTheoIDDiaDiem", new SqlParameter("@iddiadiem", id)).Tables[0];
                 foreach(DataRow dr in dt.Rows)
                 {
                     HuongDanOBJ obj = new HuongDanOBJ

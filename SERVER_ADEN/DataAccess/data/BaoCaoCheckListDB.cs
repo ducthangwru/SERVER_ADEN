@@ -10,6 +10,8 @@ namespace SERVER_ADEN.DataAccess.data
 {
     public class BaoCaoCheckListDB
     {
+        public static SqlDataHelpers db = new SqlDataHelpers();
+
         BaoCaoCheckListDB() { }
         public static bool themBaoCaoCheckList(BaoCaoCheckListAppOBJ obj)
         {

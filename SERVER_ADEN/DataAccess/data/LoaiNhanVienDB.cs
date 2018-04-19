@@ -12,31 +12,36 @@ namespace SERVER_ADEN.DataAccess.data
     {
         public LoaiNhanVienDB() { }
 
-        public static bool themLoaiNhanVien(LoaiNhanVienOBJ obj)
-        {
-            try
-            {
+        /// <summary>
+        /// Thêm loại nhân viên
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        //public static bool themLoaiNhanVien(LoaiNhanVienOBJ obj)
+        //{
+        //    try
+        //    {
 
-                int result =  Util.db.ExecuteNonQuery(Procedures.ThemLoaiNhanVien(obj.TenLoaiNhanVien));
-                return result > 0;
-            }
-            catch (Exception ex)
-            {
-                string err = ex.Message;
-                return false;
-            }
-        }
+        //        int result =  Util.db.ExecuteNonQuery(Procedures.ThemLoaiNhanVien(obj.TenLoaiNhanVien));
+        //        return result > 0;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string err = ex.Message;
+        //        return false;
+        //    }
+        //}
 
-        public static bool getLoaiNhanVienTheoID(int id)
-        {
-            try
-            {
-                return Util.db.ExecuteNonQuery(Procedures.GetLoaiNhanVienTheoID(id)) > 0;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        //public static bool getLoaiNhanVienTheoID(int id)
+        //{
+        //    try
+        //    {
+        //        return Util.db.ExecuteNonQuery(Procedures.GetLoaiNhanVienTheoID(id)) > 0;
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
     }
 }

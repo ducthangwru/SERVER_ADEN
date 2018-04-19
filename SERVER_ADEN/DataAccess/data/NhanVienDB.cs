@@ -3,6 +3,7 @@ using SERVER_ADEN.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -10,13 +11,25 @@ namespace SERVER_ADEN.DataAccess.data
 {
     public class NhanVienDB
     {
+        public static SqlDataHelpers db = new SqlDataHelpers();
         public NhanVienDB() { }
 
+        /// <summary>
+        /// Lấy ID Thẻ theo tài khoản mật khẩu
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public static string getIDTheNhanVienTheoTK_MK(LoginOBJ obj)
         {
             try
             {
-                DataTable dt = Util.db.ExecuteDataSet(Procedures.GetIDTheTheoTK_MK(obj)).Tables[0];
+                SqlParameter[] param = new SqlParameter[]
+                {
+                    new SqlParameter("@teandangnhap", obj.username),
+                    new SqlParameter("@matkhau", obj.password)
+                };
+
+                DataTable dt = db.ExecuteDataSet("sp_AppKsmart_Aden_GetIDTheTheoTK_MK", param).Tables[0];
                 return (dt.Rows[0]["ID_TheNhanVien"] != null)  ? dt.Rows[0]["ID_TheNhanVien"].ToString() : "";
             }
             catch(Exception ex)
@@ -25,13 +38,18 @@ namespace SERVER_ADEN.DataAccess.data
             }
         }
 
+        /// <summary>
+        /// Lấy thông tin nhân viên, kế hoạch theo ID thẻ đọc được từ NFC
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static NhanVienOBJ getNhanVienTheoIDThe(string id)
         {
             NhanVienOBJ nhanvien = null;
             try
             {
 
-                DataTable dt = Util.db.ExecuteDataSet(Procedures.GetNhanVienTheoIDThe(id)).Tables[0];
+                DataTable dt = db.ExecuteDataSet("sp_AppKsmart_Aden_GetNVTheoIDThe", new SqlParameter("@idthe", id)).Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
                     nhanvien = new NhanVienOBJ
